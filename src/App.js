@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React from "react";
+import Home from "./pages/home/Home";
+import { Routes, Route } from "react-router-dom";
+import ChooseBrand from "./pages/choose-brand/ChooseBrand";
+import OrderVerification from "./pages/order-verification/OrderVerification";
+import DigitsVerification from "./pages/digits-verification/DigitsVerification";
+import ConfirmOrder from "./pages/confirm-order/ConfirmOrder";
+import ConfirmOrderForm from "./pages/confirm-order-form/ConfirmOrderForm";
+import OrderComplete from "./pages/order-complete/OrderComplete";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route exact path="/" element={<Home />} />
+      <Route exact path="/choose-brand" element={<ChooseBrand />} />
+      <Route exact path="/verify-order" element={<OrderVerification />} />
+      <Route
+        exact
+        path="/digits-verification"
+        element={<DigitsVerification />}
+      />
+      <Route exact path="/confirm-order" element={<ConfirmOrder />} />
+      <Route exact path="/confirm-order-form" element={<ConfirmOrderForm />} />
+      <Route exact path="/order-complete" element={<OrderComplete />} />
+    </Routes>
   );
 }
 

@@ -1,0 +1,11 @@
+.order-complete-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+.responsive-img {
+  max-width: 100%;
+  display: block;
+}

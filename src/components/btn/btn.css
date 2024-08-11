@@ -1,0 +1,33 @@
+.btn {
+  display: block;
+  background-color: var(--primary-color);
+  padding-inline: 60px;
+  padding-block: 15px;
+  margin-top: 20px;
+  border-radius: 45px;
+  -webkit-border-radius: 45px;
+  -moz-border-radius: 45px;
+  -ms-border-radius: 45px;
+  -o-border-radius: 45px;
+  text-align: center;
+  width: fit-content;
+  outline: none;
+  border: none;
+}
+.btn a {
+  text-decoration: none;
+  color: var(--white-color);
+  text-transform: capitalize;
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: 1.1px;
+}
+@media (max-width: 576px) {
+  .btn {
+    padding-inline: 50px;
+    padding-block: 8px;
+  }
+  .btn a {
+    font-size: 25px;
+  }
+}

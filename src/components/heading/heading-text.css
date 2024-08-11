@@ -1,0 +1,30 @@
+.heading-text {
+  color: var(--primary-color);
+  font-size: 40px;
+  font-weight: 700;
+  text-transform: capitalize;
+  margin-block: 30px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .heading-text {
+    font-size: 35px;
+  }
+}
+
+@media (max-width: 576px) {
+  .heading-text {
+    font-size: 30px;
+  }
+}
+@media (max-width: 480px) {
+  .heading-text {
+    font-size: 25px;
+  }
+}
+@media (max-width: 320px) {
+  .heading-text {
+    font-size: 22px;
+  }
+}

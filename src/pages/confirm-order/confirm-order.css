@@ -1,0 +1,50 @@
+.confirm-order-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.all-number {
+  text-align: center;
+  background-color: #efefef;
+  color: #000;
+  padding-block: 15px;
+  border-radius: 10px;
+  width: 500px;
+  max-width: 100%;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.all-number-text {
+  font-weight: 700;
+  font-size: 35px;
+  letter-spacing: 2px;
+}
+.btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.cancle-btn {
+  background-color: var(--secondary-color);
+  border: 1px solid var(--primary-color);
+  padding-inline: 25px !important;
+  text-align: center;
+}
+.cancle-btn a {
+  color: var(--primary-color) !important;
+}
+@media (max-width: 576px) {
+  .all-number {
+    width: 350px;
+  }
+}
+@media (max-width: 480px) {
+  .all-number-text {
+    font-weight: 700;
+    font-size: 30px;
+  }
+}
