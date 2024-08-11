@@ -16,7 +16,12 @@ function ConfirmOrderForm() {
 
   const location = useLocation();
   const navigate = useNavigate();
-  const { name = '', color = '', logo = '', orderData = {} } = location.state || {};
+  const {
+    name = "",
+    color = "",
+    logo = "",
+    orderData = {},
+  } = location.state || {};
 
   const [checked, setChecked] = useState(false);
   const [formData, setFormData] = useState({

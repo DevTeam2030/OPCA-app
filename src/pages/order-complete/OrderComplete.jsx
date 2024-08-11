@@ -5,6 +5,7 @@ import "./order-complete.css";
 import HeadingText from "../../components/heading/HeadingText";
 import { useLocation, useNavigate } from "react-router-dom";
 function OrderComplete() {
+  const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -21,7 +22,7 @@ function OrderComplete() {
         alt=""
       />
       <HeadingText text="thank you" />
-      <Btn text="Home" type="button" to="/" />
+      <Btn text="Home" type="button" onClick={() => navigate("/")} />
 
       </div>
 

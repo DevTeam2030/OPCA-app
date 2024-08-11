@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-bottom: 30px;
 }
 .all-number {
   text-align: center;
@@ -33,10 +34,10 @@
   border: 1px solid var(--primary-color);
   padding-inline: 25px !important;
   text-align: center;
-}
-.cancle-btn a {
   color: var(--primary-color) !important;
+
 }
+
 @media (max-width: 576px) {
   .all-number {
     width: 350px;

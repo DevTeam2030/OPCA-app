@@ -52,7 +52,7 @@ function ConfirmOrder() {
         </div>
         <div className="btns">
           <Btn text="Yes" type="button" onClick={handleSubmit} />
-          <Btn text="No" type="button" to="/" className="cancle-btn" />
+          <Btn text="No" type="button"onClick={() => navigate("/")} className="cancle-btn" />
         </div>
       </div>
     </div>

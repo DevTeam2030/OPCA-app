@@ -13,15 +13,14 @@
   width: fit-content;
   outline: none;
   border: none;
-}
-.btn a {
-  text-decoration: none;
   color: var(--white-color);
   text-transform: capitalize;
   font-size: 30px;
   font-weight: bold;
   letter-spacing: 1.1px;
+  cursor: pointer;
 }
+
 @media (max-width: 576px) {
   .btn {
     padding-inline: 50px;
