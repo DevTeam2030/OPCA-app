@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import HeadingText from "../../components/heading/HeadingText";
 import "./digits-verification.css";
 import Header from "../../components/header/Header";

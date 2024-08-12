@@ -57,11 +57,7 @@ function ChooseBrand() {
                 onClick={() => handleClick(brand)}
                 className="brand-item"
               >
-                <img
-                  src={brand.header_log}
-                  alt={brand.name}
-                  className="brand-logo"
-                />
+                <img src={brand.logo} alt={brand.name} className="brand-logo" />
               </div>
             ))}
           </div>

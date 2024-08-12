@@ -4,15 +4,14 @@ header {
   align-items: center;
   width: 100%;
   height: 240px;
-  padding-inline: 20px;
+  padding-inline: 30px;
   border-bottom-left-radius: 50px;
   border-bottom-right-radius: 50px;
-  flex-wrap: wrap-reverse;
   gap: 20px;
 }
 
 .brand-logo {
-  width: 200px;
+  width: 180px;
   height: auto;
   max-width: 100%;
 }
@@ -29,12 +28,23 @@ header {
     height: 200px;
   }
 }
+@media (max-width: 576px) {
+  .header-text {
+    font-size: 55px;
+  }
+  .brand-logo {
+    width: 150px;
+  }
+}
 @media (max-width: 480px) {
+  header {
+    height: 200px;
+  }
   .header-text {
     font-size: 50px;
   }
   .brand-logo {
-    width: 180px;
+    width: 140px;
   }
 }
 @media (max-width: 400px) {
@@ -45,7 +55,9 @@ header {
     width: 150px;
   }
   header {
-    height: 175px;
+    height: 220px;
+    flex-wrap: wrap-reverse;
+    justify-content: center;
   }
 }
 @media (max-width: 320px) {

@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const OrderVerification = () => {
-  const [inputs, setInputs] = useState(Array(8).fill(""));
+  const [inputs, setInputs] = useState(["5", "","","","","","","",""]); 
   const location = useLocation();
   const navigate = useNavigate();
   const { name, color, logo } = location.state || {};
@@ -19,8 +19,8 @@ const OrderVerification = () => {
       const newInputs = [...inputs];
       newInputs[index] = value;
       setInputs(newInputs);
-      if (value !== "" && index < 7) {
-        document.getElementById(`input-${index + 1}`).focus();
+      if (value !== "" && index < 8) { // Focus on the next input only if it's within the first 8
+        document.getElementById(`input-${index + 2}`).focus();
       }
     }
   };

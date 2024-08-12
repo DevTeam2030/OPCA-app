@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import HeadingText from "../../components/heading/HeadingText";
 import "./confirm-order.css";
 import Header from "../../components/header/Header";
@@ -10,6 +10,7 @@ function ConfirmOrder() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  
   const location = useLocation();
   const navigate = useNavigate();
   const { name, color, logo, fullOrderNo } = location.state || {};
@@ -48,11 +49,16 @@ function ConfirmOrder() {
       <div className="confirm-order-content content">
         <HeadingText text="Confirm Your Order Number" />
         <div className="all-number">
-          <h4 className="all-number-text">{fullOrderNo}</h4>{" "}
+          <h4 className="all-number-text">{fullOrderNo}</h4>
         </div>
         <div className="btns">
           <Btn text="Yes" type="button" onClick={handleSubmit} />
-          <Btn text="No" type="button"onClick={() => navigate("/")} className="cancle-btn" />
+          <Btn
+            text="No"
+            type="button"
+            onClick={() => navigate("/digits-verification", { state: { name, color, logo } })}
+            className="cancle-btn"
+          />
         </div>
       </div>
     </div>

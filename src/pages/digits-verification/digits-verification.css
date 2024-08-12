@@ -87,7 +87,7 @@
 }
 @media (max-width: 480px) {
   .number-container {
-    gap: 1px;
+    gap: 3px;
   }
   .number {
     width: 300px;
@@ -99,11 +99,11 @@
   .input-container input {
     width: 35px;
   }
-}
-@media (max-width: 320px) {
   .number-container {
     flex-wrap: wrap;
   }
+}
+@media (max-width: 320px) {
   .input-container input {
     width: 30px;
   }

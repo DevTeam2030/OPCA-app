@@ -23,15 +23,34 @@ function ConfirmOrderForm() {
     orderData = {},
   } = location.state || {};
 
-  const [checked, setChecked] = useState(false);
+  // Helper function to get the current time in HH:mm format
+  const getCurrentTime = () => {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, "0");
+    const minutes = now.getMinutes().toString().padStart(2, "0");
+    return `${hours}:${minutes}`;
+  };
+
+  // Helper function to get time 15 minutes later in HH:mm format
+  const getTimePlus15Minutes = () => {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() + 15);
+    const hours = now.getHours().toString().padStart(2, "0");
+    const minutes = now.getMinutes().toString().padStart(2, "0");
+    return `${hours}:${minutes}`;
+  };
+
+  // Initialize formData state
   const [formData, setFormData] = useState({
     order_id: orderData.order_id || "",
-    receive_time: orderData.receive_time || "",
-    ready_time: orderData.ready_time || "",
-    pickup_time: orderData.pickup_time || "",
+    receive_time: orderData.receive_time,
+    ready_time: orderData.ready_time || getTimePlus15Minutes(),
+    pickup_time: getCurrentTime(), // Set to current time if null
     order_food_item: orderData.order_food_item || "",
     order_drink_item: orderData.order_drink_item || "",
   });
+
+  const [checked, setChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const sigCanvas = useRef(null);
 
@@ -103,11 +122,11 @@ function ConfirmOrderForm() {
             <div className="input-wrapper">
               <label className="input-label">Receive Time</label>
               <input
-                type="text"
+                type="time"
                 name="receive_time"
                 className="input-field"
-                readOnly
                 value={formData.receive_time}
+                readOnly
               />
             </div>
           </div>
@@ -115,21 +134,21 @@ function ConfirmOrderForm() {
             <div className="input-wrapper">
               <label className="input-label">Ready Time</label>
               <input
-                type="text"
+                type="time"
                 name="ready_time"
                 className="input-field"
-                readOnly
                 value={formData.ready_time}
+                readOnly
               />
             </div>
             <div className="input-wrapper">
               <label className="input-label">Pickup Time</label>
               <input
-                type="text"
+                type="time"
                 name="pickup_time"
                 className="input-field"
-                readOnly
                 value={formData.pickup_time}
+                readOnly
               />
             </div>
           </div>
