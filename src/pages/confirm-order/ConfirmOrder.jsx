@@ -10,7 +10,7 @@ function ConfirmOrder() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  
+
   const location = useLocation();
   const navigate = useNavigate();
   const { name, color, logo, fullOrderNo } = location.state || {};
@@ -56,7 +56,9 @@ function ConfirmOrder() {
           <Btn
             text="No"
             type="button"
-            onClick={() => navigate("/digits-verification", { state: { name, color, logo } })}
+            onClick={() =>
+              navigate("/digits-verification", { state: { name, color, logo } })
+            }
             className="cancle-btn"
           />
         </div>

@@ -6,8 +6,8 @@
   --white-color: #fff;
   --text-color: #000;
 }
-body{
-  background-color: var(--secondary-color);;
+body {
+  background-color: var(--secondary-color);
 }
 * {
   margin: 0;
@@ -37,12 +37,32 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-/* Hide arrows in number input for Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
 }
 
-/* Hide arrows in number input for Edge */
 input[type="number"] {
   appearance: textfield;
+}
+
+/* loading spinner */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.spinner-icon {
+  animation: spin 1s linear infinite;
+  -webkit-animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

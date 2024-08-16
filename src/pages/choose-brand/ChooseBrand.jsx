@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FaSpinner } from "react-icons/fa";
 import "./choose-brand.css";
 import HeadingText from "../../components/heading/HeadingText";
-
+import BrandHeader from "../../components/header/BrandHeader";
 function ChooseBrand() {
   const [brands, setBrands] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,9 +40,7 @@ function ChooseBrand() {
 
   return (
     <div className="choose-brand-container">
-      <header className="choose-brand-header flex-row">
-        <h1>OPCA</h1>
-      </header>
+      <BrandHeader />
       <div className="choose-brand-content content">
         <HeadingText text="Please choose your brand" />
         {loading ? (

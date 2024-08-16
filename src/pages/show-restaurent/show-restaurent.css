@@ -1,0 +1,113 @@
+.choose-restaurant-content {
+  padding-bottom: 30px;
+}
+.restaurant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  justify-items: center;
+  align-items: center;
+}
+
+.restaurant-logo {
+  max-width: 100%;
+  border-radius: 20px;
+  filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.16));
+}
+
+.restaurant-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+@media (max-width: 682px) {
+  .restaurant-name {
+    text-align: center;
+  }
+}
+/* Icon Styles */
+.check-icon-container {
+  background-color: #fff;
+  z-index: 1;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.check-icon {
+  color: gray;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.check-icon:hover {
+  color: blue;
+}
+
+
+.restaurant-item {
+  position: relative;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+  width: 500px;
+  max-width: 100%;
+}
+
+.modal-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.next-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.branch-item {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #d5d5d5;
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.branch-item.selected {
+  color: #d5d5d5;
+  background-color: var(--primary-color);
+}

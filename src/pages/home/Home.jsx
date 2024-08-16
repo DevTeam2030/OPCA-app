@@ -1,8 +1,20 @@
 import React from "react";
-import "./home.css";
 import { HiOutlineArrowLongRight } from "react-icons/hi2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import "./home.css";
+
 function Home() {
+  const navigate = useNavigate();
+
+  const handleNavigation = () => {
+    const storedBranch = localStorage.getItem("selectedBranch");
+    if (storedBranch) {
+      navigate("/choose-brand");
+    } else {
+      navigate("/show-restaurent");
+    }
+  };
+
   return (
     <div className="home">
       <div className="svg-container">
@@ -31,13 +43,13 @@ function Home() {
           />
         </div>
 
-        <Link
-          to="/choose-brand"
+        <button
           className="arrow-icon"
           aria-label="Go to Choose Brand Page"
+          onClick={handleNavigation}
         >
           <HiOutlineArrowLongRight size={50} />
-        </Link>
+        </button>
       </div>
     </div>
   );

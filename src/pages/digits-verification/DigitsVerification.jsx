@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import HeadingText from "../../components/heading/HeadingText";
 import "./digits-verification.css";
 import Header from "../../components/header/Header";
@@ -7,15 +7,20 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { IoMdClose } from "react-icons/io";
 
 const DigitsVerification = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   const [inputs, setInputs] = useState(Array(4).fill(""));
   const location = useLocation();
   const navigate = useNavigate();
   const { name, color, logo } = location.state || {};
+
+  // Ref to store the currently focused input
+  // const focusedInputRef = useRef(null);
 
   const handleChange = (e, index) => {
     const { value } = e.target;
@@ -23,8 +28,22 @@ const DigitsVerification = () => {
       const newInputs = [...inputs];
       newInputs[index] = value;
       setInputs(newInputs);
-      if (value !== "" && index < 3) {
+      if (value !== "" && index < inputs.length - 1) {
         document.getElementById(`input-${index + 1}`).focus();
+      }
+    }
+  };
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace") {
+      const newInputs = [...inputs];
+      if (newInputs[index] === "" && index > 0) {
+        document.getElementById(`input-${index - 1}`).focus();
+        newInputs[index - 1] = "";
+        setInputs(newInputs);
+      } else if (newInputs[index] !== "") {
+        newInputs[index] = "";
+        setInputs(newInputs);
       }
     }
   };
@@ -35,7 +54,25 @@ const DigitsVerification = () => {
         const newInputs = [...inputs];
         newInputs[i] = number;
         setInputs(newInputs);
-        document.getElementById(`input-${i}`).focus();
+        document.getElementById(`input-${i}`).blur(); // Hide the keyboard
+        if (i < inputs.length - 1) {
+          document.getElementById(`input-${i + 1}`).focus();
+        }
+        break;
+      }
+    }
+  };
+
+  const handleDelete = () => {
+    const newInputs = [...inputs];
+    for (let i = inputs.length - 1; i >= 0; i--) {
+      if (newInputs[i] !== "") {
+        newInputs[i] = "";
+        setInputs(newInputs);
+        if (i > 0) {
+          document.getElementById(`input-${i - 1}`).focus();
+        }
+        document.activeElement.blur(); // Hide the keyboard
         break;
       }
     }
@@ -73,7 +110,12 @@ const DigitsVerification = () => {
                 type="text"
                 value={value}
                 onChange={(e) => handleChange(e, index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
                 maxLength="1"
+                inputMode="none"
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck="false"
               />
             </div>
           ))}
@@ -88,6 +130,9 @@ const DigitsVerification = () => {
               {number}
             </span>
           ))}
+          <span className="number-text remove-btn" onClick={handleDelete}>
+            <IoMdClose size={30} />
+          </span>
         </div>
         <Btn text="Enter" type="button" onClick={handleSubmit} />
       </div>

@@ -7,6 +7,7 @@ import DigitsVerification from "./pages/digits-verification/DigitsVerification";
 import ConfirmOrder from "./pages/confirm-order/ConfirmOrder";
 import ConfirmOrderForm from "./pages/confirm-order-form/ConfirmOrderForm";
 import OrderComplete from "./pages/order-complete/OrderComplete";
+import ShowRestaurent from "./pages/show-restaurent/ShowRestaurent";
 function App() {
   return (
     <Routes>
@@ -21,6 +22,7 @@ function App() {
       <Route exact path="/confirm-order" element={<ConfirmOrder />} />
       <Route exact path="/confirm-order-form" element={<ConfirmOrderForm />} />
       <Route exact path="/order-complete" element={<OrderComplete />} />
+      <Route exact path="/show-restaurent" element={<ShowRestaurent />} />
     </Routes>
   );
 }

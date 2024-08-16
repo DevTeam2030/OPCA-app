@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../components/header/Header";
 import HeadingText from "../../components/heading/HeadingText";
 import Btn from "../../components/btn/Btn";
@@ -6,9 +6,14 @@ import "./order-verification.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { IoMdClose } from "react-icons/io";
 
 const OrderVerification = () => {
-  const [inputs, setInputs] = useState(["5", "","","","","","","",""]); 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const [inputs, setInputs] = useState(Array(9).fill(""));
   const location = useLocation();
   const navigate = useNavigate();
   const { name, color, logo } = location.state || {};
@@ -19,8 +24,22 @@ const OrderVerification = () => {
       const newInputs = [...inputs];
       newInputs[index] = value;
       setInputs(newInputs);
-      if (value !== "" && index < 8) { // Focus on the next input only if it's within the first 8
-        document.getElementById(`input-${index + 2}`).focus();
+      if (value !== "" && index < inputs.length - 1) {
+        document.getElementById(`input-${index + 1}`).focus();
+      }
+    }
+  };
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace") {
+      const newInputs = [...inputs];
+      if (newInputs[index] === "" && index > 0) {
+        document.getElementById(`input-${index - 1}`).focus();
+        newInputs[index - 1] = "";
+        setInputs(newInputs);
+      } else if (newInputs[index] !== "") {
+        newInputs[index] = "";
+        setInputs(newInputs);
       }
     }
   };
@@ -31,7 +50,25 @@ const OrderVerification = () => {
         const newInputs = [...inputs];
         newInputs[i] = number;
         setInputs(newInputs);
-        document.getElementById(`input-${i}`).focus();
+        document.getElementById(`input-${i}`).blur(); // Hide the keyboard
+        if (i < inputs.length - 1) {
+          document.getElementById(`input-${i + 1}`).focus();
+        }
+        break;
+      }
+    }
+  };
+
+  const handleDelete = () => {
+    const newInputs = [...inputs];
+    for (let i = inputs.length - 1; i >= 0; i--) {
+      if (newInputs[i] !== "") {
+        newInputs[i] = "";
+        setInputs(newInputs);
+        if (i > 0) {
+          document.getElementById(`input-${i - 1}`).focus();
+        }
+        document.activeElement.blur(); // Hide the keyboard
         break;
       }
     }
@@ -47,8 +84,6 @@ const OrderVerification = () => {
     }
   };
 
-  const isButtonDisabled = inputs.some((input) => input === "");
-
   return (
     <div className="order-verification-container">
       <Header brand_logo={logo} brand_color={color} />
@@ -62,7 +97,12 @@ const OrderVerification = () => {
                 type="text"
                 value={value}
                 onChange={(e) => handleChange(e, index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
                 maxLength="1"
+                inputMode="none"
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck="false"
               />
             </div>
           ))}
@@ -77,12 +117,15 @@ const OrderVerification = () => {
               {number}
             </span>
           ))}
+          <span className="number-text remove-btn" onClick={handleDelete}>
+            <IoMdClose size={30} />
+          </span>
         </div>
         <Btn
           text="Enter"
           type="button"
           onClick={handleSubmit}
-          disabled={isButtonDisabled}
+          disabled={inputs.some((input) => input === "")}
         />
       </div>
       <ToastContainer />

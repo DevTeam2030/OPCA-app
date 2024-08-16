@@ -8,6 +8,7 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FiCheckCircle } from "react-icons/fi";
 
 function ConfirmOrderForm() {
   useEffect(() => {
@@ -23,7 +24,6 @@ function ConfirmOrderForm() {
     orderData = {},
   } = location.state || {};
 
-  // Helper function to get the current time in HH:mm format
   const getCurrentTime = () => {
     const now = new Date();
     const hours = now.getHours().toString().padStart(2, "0");
@@ -31,7 +31,6 @@ function ConfirmOrderForm() {
     return `${hours}:${minutes}`;
   };
 
-  // Helper function to get time 15 minutes later in HH:mm format
   const getTimePlus15Minutes = () => {
     const now = new Date();
     now.setMinutes(now.getMinutes() + 15);
@@ -40,16 +39,19 @@ function ConfirmOrderForm() {
     return `${hours}:${minutes}`;
   };
 
-  // Initialize formData state
+  const branchData = JSON.parse(localStorage.getItem("selectedBranch")) || {};
+  const branchName = branchData.name || "";
+
   const [formData, setFormData] = useState({
     order_id: orderData.order_id || "",
     receive_time: orderData.receive_time,
     ready_time: orderData.ready_time || getTimePlus15Minutes(),
-    pickup_time: getCurrentTime(), // Set to current time if null
+    pickup_time: getCurrentTime(),
     order_food_item: orderData.order_food_item || "",
     order_drink_item: orderData.order_drink_item || "",
+    branch_name: branchName,
   });
-
+  console.log(formData);
   const [checked, setChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const sigCanvas = useRef(null);
@@ -88,7 +90,6 @@ function ConfirmOrderForm() {
           headers: { "Content-Type": "application/json" },
         }
       );
-      console.log("Response:", response.data);
       setIsLoading(false);
       toast.success("Order confirmed successfully!");
       navigate("/order-complete", { state: { name, color, logo } });
@@ -174,9 +175,9 @@ function ConfirmOrderForm() {
               />
             </div>
           </div>
-          <div className="circular-checkbox-wrapper" onClick={toggleChecked}>
-            <div className={`circular-checkbox ${checked ? "checked" : ""}`}>
-              {checked && <div className="checkmark">✓</div>}
+          <div className="checkbox-wrapper" onClick={toggleChecked}>
+            <div className={`checkbox-icon ${checked ? "checked" : ""}`}>
+              <FiCheckCircle />
             </div>
             <span className="input-label">
               Confirm order complete and in good condition
@@ -191,6 +192,11 @@ function ConfirmOrderForm() {
               canvasProps={{ className: "signature-canvas" }}
             />
           </div>
+          <input
+            type="hidden"
+            name="branch_name"
+            value={formData.branch_name}
+          />
           <div className="flex">
             <Btn text="Submit" type="submit" isLoading={isLoading} />
           </div>

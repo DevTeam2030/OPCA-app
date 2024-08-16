@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React, { useEffect } from "react";
 import Header from "../../components/header/Header";
 import Btn from "../../components/btn/Btn";
 import "./order-complete.css";
@@ -14,19 +14,18 @@ function OrderComplete() {
   const { color, logo } = location.state || {};
   return (
     <div className="order-complete-container">
-     <Header brand_logo={logo} brand_color={color} /> 
-    <div className="order-complete-content content">
-    <img
-        className="responsive-img"
-        src={require("../../assets/man.png")}
-        alt=""
-      />
-      <HeadingText text="thank you" />
-      <Btn text="Home" type="button" onClick={() => navigate("/")} />
-
+      <Header brand_logo={logo} brand_color={color} />
+      <div className="order-complete-content content">
+        <img
+          className="responsive-img"
+          src={require("../../assets/man.png")}
+          alt=""
+        />
+        <HeadingText text="thank you" />
+        <Btn text="Home" type="button" onClick={() => navigate("/")} />
       </div>
-
-    </div>)
+    </div>
+  );
 }
 
-export default OrderComplete
+export default OrderComplete;
