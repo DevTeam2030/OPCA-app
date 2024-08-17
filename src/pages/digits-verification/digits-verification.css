@@ -72,6 +72,7 @@
   font-weight: bold;
   color: #3b3b3b;
   cursor: pointer;
+  user-select: none;
 }
 .remove-btn{
   background-color: #b80101;
