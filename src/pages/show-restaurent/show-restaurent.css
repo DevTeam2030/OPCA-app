@@ -51,11 +51,13 @@
   color: blue;
 }
 
-
+/* Grid Item Styles */
 .restaurant-item {
   position: relative;
+  /* other item styles */
 }
 
+/* Modal Styles */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -77,14 +79,20 @@
   position: relative;
   width: 500px;
   max-width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .modal-image {
   max-width: 100%;
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
-
+.modal-title {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: var(--text-color);
+}
 .next-button {
   background-color: var(--primary-color);
   color: white;
@@ -110,4 +118,36 @@
 .branch-item.selected {
   color: #d5d5d5;
   background-color: var(--primary-color);
+}
+.next-btn {
+  padding-inline: 38px;
+  padding-block: 8px;
+  font-size: 1.3rem;
+}
+body.modal-open {
+  overflow: hidden;
+}
+
+.close-modal-button {
+  background: none;
+  border: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+  border: 2px solid #f1f1f1;
 }

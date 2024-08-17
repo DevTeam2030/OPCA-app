@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaSpinner } from "react-icons/fa";
-import { FiCheckCircle } from "react-icons/fi";
+import { FiCheckCircle, FiX } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import "./show-restaurent.css";
 import HeadingText from "../../components/heading/HeadingText";
@@ -9,6 +9,7 @@ import BrandHeader from "../../components/header/BrandHeader";
 import Btn from "../../components/btn/Btn";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 function ShowRestaurent() {
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -44,9 +45,10 @@ function ShowRestaurent() {
   const handleRestaurantClick = (restaurant) => {
     setSelectedRestaurant(restaurant);
     setSelectedBranch(null);
+    document.body.classList.add("modal-open");
   };
+
   const handleBranchClick = (branch) => {
-    console.log("Selected Branch:", branch); // Debugging
     setSelectedBranch(branch);
     localStorage.setItem("selectedBranch", JSON.stringify(branch));
   };
@@ -63,6 +65,7 @@ function ShowRestaurent() {
     setSelectedRestaurant(null);
     setSelectedBranch(null);
     localStorage.removeItem("selectedBranch");
+    document.body.classList.remove("modal-open");
   };
 
   return (
@@ -106,12 +109,15 @@ function ShowRestaurent() {
       {selectedRestaurant && (
         <div className="modal-overlay">
           <div className="modal-content">
+            <button className="close-modal-button" onClick={handleCloseModal}>
+              <FiX size={24} />
+            </button>
             <img
               src={selectedRestaurant.logo}
               alt={selectedRestaurant.name}
               className="modal-image"
             />
-            <h2>{selectedRestaurant.name}</h2>
+            <h2 className="modal-title">{selectedRestaurant.name}</h2>
             {selectedRestaurant.restaurants.length > 0 ? (
               <div className="branches">
                 {selectedRestaurant.restaurants.map((branch) => (
@@ -131,7 +137,12 @@ function ShowRestaurent() {
               <p>No branches available for this restaurant.</p>
             )}
             <div className="flex">
-              <Btn text="Next" type="button" onClick={handleNextButtonClick} />
+              <Btn
+                text="Next"
+                className="next-btn"
+                type="button"
+                onClick={handleNextButtonClick}
+              />
             </div>
           </div>
         </div>
@@ -140,4 +151,5 @@ function ShowRestaurent() {
     </div>
   );
 }
+
 export default ShowRestaurent;

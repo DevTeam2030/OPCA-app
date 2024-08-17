@@ -13,7 +13,8 @@ const OrderVerification = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const [inputs, setInputs] = useState(Array(9).fill(""));
+  // Set the initial value of the first input to "5"
+  const [inputs, setInputs] = useState(["5", "", "", "", "", "", "", "", ""]);
   const location = useLocation();
   const navigate = useNavigate();
   const { name, color, logo } = location.state || {};
@@ -50,7 +51,7 @@ const OrderVerification = () => {
         const newInputs = [...inputs];
         newInputs[i] = number;
         setInputs(newInputs);
-        document.getElementById(`input-${i}`).blur(); // Hide the keyboard
+        document.getElementById(`input-${i}`).blur(); 
         if (i < inputs.length - 1) {
           document.getElementById(`input-${i + 1}`).focus();
         }
@@ -68,7 +69,7 @@ const OrderVerification = () => {
         if (i > 0) {
           document.getElementById(`input-${i - 1}`).focus();
         }
-        document.activeElement.blur(); // Hide the keyboard
+        document.activeElement.blur(); 
         break;
       }
     }
