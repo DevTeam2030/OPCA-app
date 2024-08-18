@@ -84,6 +84,7 @@ function ShowRestaurent() {
                 className={`restaurant-item ${
                   selectedRestaurant?.id === restaurant.id ? "selected" : ""
                 }`}
+                onClick={() => handleRestaurantClick(restaurant)}
               >
                 <div className="check-icon-container">
                   <FiCheckCircle
@@ -91,7 +92,6 @@ function ShowRestaurent() {
                       selectedRestaurant?.id === restaurant.id ? "active" : ""
                     }`}
                     size={24}
-                    onClick={() => handleRestaurantClick(restaurant)}
                   />
                 </div>
                 <img
