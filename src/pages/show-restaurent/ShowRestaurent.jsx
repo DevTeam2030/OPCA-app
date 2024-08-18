@@ -45,7 +45,12 @@ function ShowRestaurent() {
   const handleRestaurantClick = (restaurant) => {
     setSelectedRestaurant(restaurant);
     setSelectedBranch(null);
-    document.body.classList.add("modal-open");
+  };
+  
+  const handleCloseModal = () => {
+    setSelectedRestaurant(null);
+    setSelectedBranch(null);
+    localStorage.removeItem("selectedBranch");
   };
 
   const handleBranchClick = (branch) => {
@@ -61,12 +66,6 @@ function ShowRestaurent() {
     }
   };
 
-  const handleCloseModal = () => {
-    setSelectedRestaurant(null);
-    setSelectedBranch(null);
-    localStorage.removeItem("selectedBranch");
-    document.body.classList.remove("modal-open");
-  };
 
   return (
     <div className="choose-restaurant-container">
@@ -137,12 +136,7 @@ function ShowRestaurent() {
               <p>No branches available for this restaurant.</p>
             )}
             <div className="flex">
-              <Btn
-                text="Next"
-                className="next-btn"
-                type="button"
-                onClick={handleNextButtonClick}
-              />
+              <Btn text="Next" className="next-btn" type="button" onClick={handleNextButtonClick} />
             </div>
           </div>
         </div>

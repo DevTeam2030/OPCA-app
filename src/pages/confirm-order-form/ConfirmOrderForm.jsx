@@ -107,6 +107,12 @@ function ConfirmOrderForm() {
     <div className="confirm-order-form-container">
       <Header brand_logo={logo} brand_color={color} />
       <div className="confirm-order-form-content content">
+        <Btn
+          text="go to Restaurants"
+          className="back-btn"
+          type="button"
+          onClick={() => navigate("/show-restaurent")}
+        />
         <HeadingText text="Confirm Your Order Details" />
         <form onSubmit={handleSave} className="form-container">
           <div className="flex">

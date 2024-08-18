@@ -10,7 +10,7 @@ function ConfirmOrder() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
+  
   const location = useLocation();
   const navigate = useNavigate();
   const { name, color, logo, fullOrderNo } = location.state || {};
@@ -47,6 +47,7 @@ function ConfirmOrder() {
     <div className="confirm-order-container">
       <Header brand_logo={logo} brand_color={color} />
       <div className="confirm-order-content content">
+      <Btn text="go to Restaurants" className="back-btn" type="button" onClick={() => navigate("/show-restaurent")} />
         <HeadingText text="Confirm Your Order Number" />
         <div className="all-number">
           <h4 className="all-number-text">{fullOrderNo}</h4>
@@ -56,9 +57,7 @@ function ConfirmOrder() {
           <Btn
             text="No"
             type="button"
-            onClick={() =>
-              navigate("/digits-verification", { state: { name, color, logo } })
-            }
+            onClick={() => navigate("/digits-verification", { state: { name, color, logo } })}
             className="cancle-btn"
           />
         </div>

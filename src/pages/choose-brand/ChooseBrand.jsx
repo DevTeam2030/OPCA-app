@@ -5,6 +5,8 @@ import { FaSpinner } from "react-icons/fa";
 import "./choose-brand.css";
 import HeadingText from "../../components/heading/HeadingText";
 import BrandHeader from "../../components/header/BrandHeader";
+import Btn from "../../components/btn/Btn";
+
 function ChooseBrand() {
   const [brands, setBrands] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -42,6 +44,7 @@ function ChooseBrand() {
     <div className="choose-brand-container">
       <BrandHeader />
       <div className="choose-brand-content content">
+      <Btn text="go to Restaurants" className="back-btn" type="button" onClick={() => navigate("/show-restaurent")} />
         <HeadingText text="Please choose your brand" />
         {loading ? (
           <div className="loading-spinner text-center">

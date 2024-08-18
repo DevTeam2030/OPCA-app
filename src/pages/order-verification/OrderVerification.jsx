@@ -51,7 +51,7 @@ const OrderVerification = () => {
         const newInputs = [...inputs];
         newInputs[i] = number;
         setInputs(newInputs);
-        document.getElementById(`input-${i}`).blur(); 
+        document.getElementById(`input-${i}`).blur();
         if (i < inputs.length - 1) {
           document.getElementById(`input-${i + 1}`).focus();
         }
@@ -69,7 +69,7 @@ const OrderVerification = () => {
         if (i > 0) {
           document.getElementById(`input-${i - 1}`).focus();
         }
-        document.activeElement.blur(); 
+        document.activeElement.blur();
         break;
       }
     }
@@ -89,6 +89,12 @@ const OrderVerification = () => {
     <div className="order-verification-container">
       <Header brand_logo={logo} brand_color={color} />
       <div className="order-verification-content content">
+        <Btn
+          text="go to Restaurants"
+          className="back-btn"
+          type="button"
+          onClick={() => navigate("/show-restaurent")}
+        />
         <HeadingText text="Enter your phone number" />
         <div className="number-container">
           {inputs.map((value, index) => (

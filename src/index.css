@@ -30,6 +30,7 @@ h1 {
 .content {
   width: 95%;
   margin: auto;
+  position: relative;
 }
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
@@ -45,7 +46,6 @@ input[type="number"] {
   appearance: textfield;
 }
 
-/* loading spinner */
 .loading-spinner {
   display: flex;
   justify-content: center;
@@ -65,4 +65,13 @@ input[type="number"] {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.back-btn {
+  margin-right: auto;
+  text-transform: uppercase !important;
+  font-weight: 500 !important;
+  z-index: 10;
+  font-size: 1rem !important;
+  padding-inline: 15px !important;
 }

@@ -1,3 +1,4 @@
+
 .choose-brand-container {
   display: flex;
   justify-content: center;
@@ -5,7 +6,7 @@
   flex-direction: column;
 }
 .choose-brand-content {
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 }
 .brands {
   display: grid;
@@ -40,3 +41,4 @@
     padding-inline: 10px;
   }
 }
+

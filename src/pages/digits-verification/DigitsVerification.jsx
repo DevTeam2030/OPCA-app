@@ -101,6 +101,12 @@ const DigitsVerification = () => {
     <div className="digits-verification-container">
       <Header brand_logo={logo} brand_color={color} />
       <div className="digits-verification-content content">
+        <Btn
+          text="go to Restaurants"
+          className="back-btn"
+          type="button"
+          onClick={() => navigate("/show-restaurent")}
+        />
         <HeadingText text="Enter the last digits of the order number" />
         <div className="number-container">
           {inputs.map((value, index) => (
