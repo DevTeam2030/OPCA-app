@@ -21,9 +21,9 @@ function ConfirmOrderForm() {
     name = "",
     color = "",
     logo = "",
+    delivery_company_id = "",
     orderData = {},
   } = location.state || {};
-
   const getCurrentTime = () => {
     const now = new Date();
     const hours = now.getHours().toString().padStart(2, "0");
@@ -50,7 +50,7 @@ function ConfirmOrderForm() {
     order_food_item: orderData.order_food_item || "",
     order_drink_item: orderData.order_drink_item || "",
     branch_name: branchName,
-    delivery_company_id: orderData.delivery_company_id || "",
+    delivery_company_id: delivery_company_id || "",
   });
 
   const [checked, setChecked] = useState(false);

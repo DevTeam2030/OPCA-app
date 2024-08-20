@@ -17,10 +17,7 @@ const DigitsVerification = () => {
   const [inputs, setInputs] = useState(Array(4).fill(""));
   const location = useLocation();
   const navigate = useNavigate();
-  const { name, color, logo } = location.state || {};
-
-  // Ref to store the currently focused input
-  // const focusedInputRef = useRef(null);
+  const { name, color, logo, delivery_company_id } = location.state || {};
 
   const handleChange = (e, index) => {
     const { value } = e.target;
@@ -89,7 +86,13 @@ const DigitsVerification = () => {
 
         console.log(full_order_no);
         navigate("/confirm-order", {
-          state: { name, color, logo, fullOrderNo: full_order_no },
+          state: {
+            name,
+            color,
+            logo,
+            delivery_company_id,
+            fullOrderNo: full_order_no,
+          },
         });
       } else {
         toast.error("Order number not found. Please try again.");

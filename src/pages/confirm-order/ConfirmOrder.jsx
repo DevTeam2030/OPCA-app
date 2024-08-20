@@ -10,11 +10,11 @@ function ConfirmOrder() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  
+
   const location = useLocation();
   const navigate = useNavigate();
-  const { name, color, logo, fullOrderNo } = location.state || {};
-
+  const { name, color, logo, fullOrderNo, delivery_company_id } =
+    location.state || {};
   const handleSubmit = async () => {
     try {
       const response = await axios.get(
@@ -22,12 +22,12 @@ function ConfirmOrder() {
       );
       if (response.data.status === 200) {
         const orderData = response.data.data;
-console.log(orderData)
         navigate("/confirm-order-form", {
           state: {
             name,
             color,
             logo,
+            delivery_company_id,
             orderData,
           },
         });
@@ -47,7 +47,12 @@ console.log(orderData)
     <div className="confirm-order-container">
       <Header brand_logo={logo} brand_color={color} />
       <div className="confirm-order-content content">
-      <Btn text="go to Restaurants" className="back-btn" type="button" onClick={() => navigate("/show-restaurent")} />
+        <Btn
+          text="go to Restaurants"
+          className="back-btn"
+          type="button"
+          onClick={() => navigate("/show-restaurent")}
+        />
         <HeadingText text="Confirm Your Order Number" />
         <div className="all-number">
           <h4 className="all-number-text">{fullOrderNo}</h4>
@@ -57,7 +62,9 @@ console.log(orderData)
           <Btn
             text="No"
             type="button"
-            onClick={() => navigate("/digits-verification", { state: { name, color, logo } })}
+            onClick={() =>
+              navigate("/digits-verification", { state: { name, color, logo } })
+            }
             className="cancle-btn"
           />
         </div>

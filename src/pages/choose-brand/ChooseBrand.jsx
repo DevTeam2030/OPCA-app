@@ -29,13 +29,13 @@ function ChooseBrand() {
 
     fetchBrands();
   }, []);
-
   const handleClick = (brand) => {
     navigate("/verify-order", {
       state: {
         name: brand.name,
         color: brand.background_color,
         logo: brand.header_log,
+        delivery_company_id: brand.id,
       },
     });
   };
@@ -44,7 +44,12 @@ function ChooseBrand() {
     <div className="choose-brand-container">
       <BrandHeader />
       <div className="choose-brand-content content">
-      <Btn text="go to Restaurants" className="back-btn" type="button" onClick={() => navigate("/show-restaurent")} />
+        <Btn
+          text="go to Restaurants"
+          className="back-btn"
+          type="button"
+          onClick={() => navigate("/show-restaurent")}
+        />
         <HeadingText text="Please choose your brand" />
         {loading ? (
           <div className="loading-spinner text-center">

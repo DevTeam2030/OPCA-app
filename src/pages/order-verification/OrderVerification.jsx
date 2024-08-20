@@ -17,8 +17,7 @@ const OrderVerification = () => {
   const [inputs, setInputs] = useState(["5", "", "", "", "", "", "", "", ""]);
   const location = useLocation();
   const navigate = useNavigate();
-  const { name, color, logo } = location.state || {};
-
+  const { name, color, logo, delivery_company_id } = location.state || {};
   const handleChange = (e, index) => {
     const { value } = e.target;
     if (/^\d?$/.test(value)) {
@@ -78,7 +77,7 @@ const OrderVerification = () => {
   const handleSubmit = () => {
     if (inputs.every((input) => input !== "")) {
       navigate("/digits-verification", {
-        state: { name, color, logo },
+        state: { name, color, logo, delivery_company_id },
       });
     } else {
       toast.error("Please enter the full number.");
