@@ -86,6 +86,8 @@ const DigitsVerification = () => {
       );
       if (response.data.status === 200) {
         const { full_order_no } = response.data.data;
+
+        console.log(full_order_no);
         navigate("/confirm-order", {
           state: { name, color, logo, fullOrderNo: full_order_no },
         });

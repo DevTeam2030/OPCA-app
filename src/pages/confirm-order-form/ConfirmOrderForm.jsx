@@ -50,14 +50,19 @@ function ConfirmOrderForm() {
     order_food_item: orderData.order_food_item || "",
     order_drink_item: orderData.order_drink_item || "",
     branch_name: branchName,
+    delivery_company_id: orderData.delivery_company_id || "",
   });
-  console.log(formData);
+
   const [checked, setChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const sigCanvas = useRef(null);
 
   const toggleChecked = () => {
     setChecked(!checked);
+  };
+
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSave = async (e) => {
@@ -176,11 +181,21 @@ function ConfirmOrderForm() {
                 type="text"
                 name="order_drink_item"
                 className="input-field"
-                readOnly
+                onChange={handleInputChange}
                 value={formData.order_drink_item}
               />
             </div>
           </div>
+          <input
+            type="hidden"
+            name="branch_name"
+            value={formData.branch_name}
+          />
+          <input
+            type="hidden"
+            name="delivery_company_id"
+            value={formData.delivery_company_id}
+          />
           <div className="checkbox-wrapper" onClick={toggleChecked}>
             <div className={`checkbox-icon ${checked ? "checked" : ""}`}>
               <FiCheckCircle />
@@ -198,11 +213,6 @@ function ConfirmOrderForm() {
               canvasProps={{ className: "signature-canvas" }}
             />
           </div>
-          <input
-            type="hidden"
-            name="branch_name"
-            value={formData.branch_name}
-          />
           <div className="flex">
             <Btn text="Submit" type="submit" isLoading={isLoading} />
           </div>

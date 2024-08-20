@@ -22,7 +22,7 @@ function ConfirmOrder() {
       );
       if (response.data.status === 200) {
         const orderData = response.data.data;
-
+console.log(orderData)
         navigate("/confirm-order-form", {
           state: {
             name,
