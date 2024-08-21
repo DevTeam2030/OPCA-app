@@ -81,20 +81,38 @@ function ConfirmOrderForm() {
       return;
     }
 
-    const signatureImage = sigCanvas.current.toDataURL();
-    const data = {
-      ...formData,
-      signature: signatureImage,
-    };
-
     try {
-      const response = await axios.post(
+      const orderCheckResponse = await axios.get(
+        `https://opca-system.faratcards.com/api/get-order-info?order_no=${formData.order_id}`
+      );
+
+      if (orderCheckResponse.data && orderCheckResponse.data.data) {
+        setIsLoading(false);
+        toast.error(
+          <>
+            Order ID already exists.{" "}
+            <a href="/" style={{ color: "blue" }}>
+              Go back to Home
+            </a>
+          </>
+        );
+        return;
+      }
+
+      const signatureImage = sigCanvas.current.toDataURL();
+      const data = {
+        ...formData,
+        signature: signatureImage,
+      };
+
+      const saveResponse = await axios.post(
         "https://opca-system.faratcards.com/api/confirm-order",
         data,
         {
           headers: { "Content-Type": "application/json" },
         }
       );
+
       setIsLoading(false);
       toast.success("Order confirmed successfully!");
       navigate("/order-complete", { state: { name, color, logo } });
