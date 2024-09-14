@@ -36,7 +36,6 @@ function ShowRestaurent() {
 
   useEffect(() => {
     const storedBranch = localStorage.getItem("selectedBranch");
-    console.log("Stored Branch Data:", storedBranch); // Debugging
     if (storedBranch) {
       setSelectedBranch(JSON.parse(storedBranch));
     }
@@ -46,7 +45,7 @@ function ShowRestaurent() {
     setSelectedRestaurant(restaurant);
     setSelectedBranch(null);
   };
-  
+
   const handleCloseModal = () => {
     setSelectedRestaurant(null);
     setSelectedBranch(null);
@@ -65,7 +64,6 @@ function ShowRestaurent() {
       toast.error("Please select a branch.");
     }
   };
-
 
   return (
     <div className="choose-restaurant-container">
@@ -136,7 +134,12 @@ function ShowRestaurent() {
               <p>No branches available for this restaurant.</p>
             )}
             <div className="flex">
-              <Btn text="Next" className="next-btn" type="button" onClick={handleNextButtonClick} />
+              <Btn
+                text="Next"
+                className="next-btn"
+                type="button"
+                onClick={handleNextButtonClick}
+              />
             </div>
           </div>
         </div>

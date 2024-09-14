@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import HeadingText from "../../components/heading/HeadingText";
 import "./digits-verification.css";
 import Header from "../../components/header/Header";
@@ -69,7 +69,7 @@ const DigitsVerification = () => {
         if (i > 0) {
           document.getElementById(`input-${i - 1}`).focus();
         }
-        document.activeElement.blur(); // Hide the keyboard
+        document.activeElement.blur();
         break;
       }
     }
@@ -77,10 +77,19 @@ const DigitsVerification = () => {
 
   const handleSubmit = async () => {
     const orderNo = inputs.join("");
+
+    const branchData = JSON.parse(localStorage.getItem("selectedBranch")) || {};
+    const { id } = branchData;
+    if (!id) {
+      toast.error("Error retrieving branch ID. Please try again.");
+      return;
+    }
+
     try {
       const response = await axios.get(
-        `https://opca-system.faratcards.com/api/get-order-id?order_no=${orderNo}`
+        `https://opcaapi.anan.sa/Opca/public/api/aggregator-order?OrderIdlast4dijits=${orderNo}&AggrType=${id}`
       );
+
       if (response.data.status === 200) {
         const { full_order_no } = response.data.data;
 

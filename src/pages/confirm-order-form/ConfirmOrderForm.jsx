@@ -83,7 +83,7 @@ function ConfirmOrderForm() {
 
     try {
       const orderCheckResponse = await axios.get(
-        `https://opca-system.faratcards.com/api/get-order-info?order_no=${formData.order_id}`
+        `https://opcaapi.anan.sa/Opca/public/api/order-details?OrderId=${formData.order_id}`
       );
 
       if (orderCheckResponse.data && orderCheckResponse.data.data) {
