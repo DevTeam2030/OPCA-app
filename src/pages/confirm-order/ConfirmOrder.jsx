@@ -5,6 +5,8 @@ import Header from "../../components/header/Header";
 import Btn from "../../components/btn/Btn";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ConfirmOrder() {
   useEffect(() => {
@@ -15,6 +17,7 @@ function ConfirmOrder() {
   const navigate = useNavigate();
   const { name, color, logo, fullOrderNo, delivery_company_id } =
     location.state || {};
+
   const handleSubmit = async () => {
     try {
       const response = await axios.get(
@@ -32,14 +35,14 @@ function ConfirmOrder() {
           },
         });
       } else {
-        alert("Order not found. Please try again.");
+        toast.error("Order not found. Please try again.");
       }
     } catch (error) {
       console.error(
         "Error fetching order data:",
         error.response ? error.response.data : error.message
       );
-      alert("An error occurred while retrieving the order information.");
+      toast.error("An error occurred while retrieving the order information.");
     }
   };
 
@@ -55,20 +58,42 @@ function ConfirmOrder() {
         />
         <HeadingText text="Confirm Your Order Number" />
         <div className="all-number">
-          <h4 className="all-number-text">{fullOrderNo}</h4>
+          {fullOrderNo ? (
+            <h4 className="all-number-text">{fullOrderNo}</h4>
+          ) : (
+            <h4 className="all-number-text">Order number not available</h4>
+          )}
         </div>
         <div className="btns">
-          <Btn text="Yes" type="button" onClick={handleSubmit} />
-          <Btn
-            text="No"
-            type="button"
-            onClick={() =>
-              navigate("/digits-verification", { state: { name, color, logo } })
-            }
-            className="cancle-btn"
-          />
+          {fullOrderNo ? (
+            <>
+              <Btn text="Yes" type="button" onClick={handleSubmit} />
+              <Btn
+                text="No"
+                type="button"
+                onClick={() =>
+                  navigate("/digits-verification", {
+                    state: { name, color, logo },
+                  })
+                }
+                className="cancle-btn"
+              />
+            </>
+          ) : (
+            <Btn
+              text="Back"
+              type="button"
+              onClick={() =>
+                navigate("/digits-verification", {
+                  state: { name, color, logo },
+                })
+              }
+              className="cancle-btn"
+            />
+          )}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

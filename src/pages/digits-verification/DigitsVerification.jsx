@@ -51,7 +51,7 @@ const DigitsVerification = () => {
         const newInputs = [...inputs];
         newInputs[i] = number;
         setInputs(newInputs);
-        document.getElementById(`input-${i}`).blur(); // Hide the keyboard
+        document.getElementById(`input-${i}`).blur();
         if (i < inputs.length - 1) {
           document.getElementById(`input-${i + 1}`).focus();
         }
@@ -76,35 +76,49 @@ const DigitsVerification = () => {
   };
 
   const handleSubmit = async () => {
-    const orderNo = inputs.join("");
-
-    const branchData = JSON.parse(localStorage.getItem("selectedBranch")) || {};
-    const { id } = branchData;
-    if (!id) {
-      toast.error("Error retrieving branch ID. Please try again.");
-      return;
-    }
+    const orderNo = inputs.join(""); // Combine inputs to form the last 4 digits
+    console.log("Order No:", orderNo);
 
     try {
       const response = await axios.get(
-        `https://opcaapi.anan.sa/Opca/public/api/aggregator-order?OrderIdlast4dijits=${orderNo}&AggrType=${id}`
+        `https://opcaapi.anan.sa/Opca/public/api/aggregator-order?OrderIdlast4dijits=${orderNo}&AggrType=hs`
       );
 
-      if (response.data.status === 200) {
-        const { full_order_no } = response.data.data;
+      console.log("API Response:", response); // Log the full API response for debugging
 
-        console.log(full_order_no);
-        navigate("/confirm-order", {
-          state: {
-            name,
-            color,
-            logo,
-            delivery_company_id,
-            fullOrderNo: full_order_no,
-          },
-        });
+      // Check if response is successful
+      if (response.data && response.data.status === 200) {
+        if (response.data.data) {
+          // If order data exists, navigate to confirm order page
+          const { full_order_no } = response.data.data;
+          console.log("Full Order No:", full_order_no); // Log the full order number
+
+          navigate("/confirm-order", {
+            state: {
+              name,
+              color,
+              logo,
+              delivery_company_id,
+              fullOrderNo: full_order_no,
+            },
+          });
+        } else {
+          // If data is null, show a message but still navigate to the page
+          toast.warning("Order number not found. You will be redirected.");
+
+          // Navigate to the confirm order page with null or default data
+          navigate("/confirm-order", {
+            state: {
+              name,
+              color,
+              logo,
+              delivery_company_id,
+              fullOrderNo: null, // No order number available
+            },
+          });
+        }
       } else {
-        toast.error("Order number not found. Please try again.");
+        toast.error("Order number not found. Please check and try again.");
       }
     } catch (err) {
       toast.error("Error verifying order number. Please try again later.");
