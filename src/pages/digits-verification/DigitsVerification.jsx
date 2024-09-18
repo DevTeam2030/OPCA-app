@@ -76,23 +76,18 @@ const DigitsVerification = () => {
   };
 
   const handleSubmit = async () => {
-    const orderNo = inputs.join(""); // Combine inputs to form the last 4 digits
-    console.log("Order No:", orderNo);
-
+    const orderNo = inputs.join("");
+    const selectedBrand = JSON.parse(localStorage.getItem("selectedBrand"));
+    const { code } = selectedBrand || {};
+  
     try {
       const response = await axios.get(
-        `https://opcaapi.anan.sa/Opca/public/api/aggregator-order?OrderIdlast4dijits=${orderNo}&AggrType=hs`
+        `https://opcaapi.anan.sa/Opca/public/api/aggregator-order?OrderIdlast4dijits=${orderNo}&AggrType=${code}`
       );
-
-      console.log("API Response:", response); // Log the full API response for debugging
-
-      // Check if response is successful
+  
       if (response.data && response.data.status === 200) {
         if (response.data.data) {
-          // If order data exists, navigate to confirm order page
           const { full_order_no } = response.data.data;
-          console.log("Full Order No:", full_order_no); // Log the full order number
-
           navigate("/confirm-order", {
             state: {
               name,
@@ -103,19 +98,7 @@ const DigitsVerification = () => {
             },
           });
         } else {
-          // If data is null, show a message but still navigate to the page
-          toast.warning("Order number not found. You will be redirected.");
-
-          // Navigate to the confirm order page with null or default data
-          navigate("/confirm-order", {
-            state: {
-              name,
-              color,
-              logo,
-              delivery_company_id,
-              fullOrderNo: null, // No order number available
-            },
-          });
+          toast.warning("Order number not found.");
         }
       } else {
         toast.error("Order number not found. Please check and try again.");
@@ -124,6 +107,8 @@ const DigitsVerification = () => {
       toast.error("Error verifying order number. Please try again later.");
     }
   };
+  
+  
 
   return (
     <div className="digits-verification-container">

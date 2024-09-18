@@ -29,7 +29,17 @@ function ChooseBrand() {
 
     fetchBrands();
   }, []);
+
   const handleClick = (brand) => {
+    // Save the selected brand data in localStorage
+    localStorage.setItem("selectedBrand", JSON.stringify({
+      name: brand.name,
+      code: brand.code,
+      color: brand.background_color,
+      logo: brand.header_log,
+      delivery_company_id: brand.id,
+    }));
+
     navigate("/verify-order", {
       state: {
         name: brand.name,
