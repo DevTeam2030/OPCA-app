@@ -64,7 +64,9 @@ function ConfirmOrderForm() {
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  const handleSignatureBegin = () => {
+    document.activeElement.blur();
+  };
   const handleSave = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -230,6 +232,7 @@ function ConfirmOrderForm() {
               backgroundColor="#EFEFEF"
               penColor="#000000"
               canvasProps={{ className: "signature-canvas" }}
+              onBegin={handleSignatureBegin}
             />
           </div>
           <div className="flex">
