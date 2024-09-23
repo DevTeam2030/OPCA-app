@@ -200,6 +200,7 @@ function ConfirmOrderForm() {
                 name="order_drink_item"
                 className="input-field"
                 onChange={handleInputChange}
+                onBlur={() => document.activeElement.blur()}
                 value={formData.order_drink_item}
               />
             </div>
