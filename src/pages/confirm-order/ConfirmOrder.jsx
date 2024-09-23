@@ -17,11 +17,12 @@ function ConfirmOrder() {
   const navigate = useNavigate();
   const { name, color, logo, fullOrderNo, delivery_company_id } =
     location.state || {};
+  console.log(fullOrderNo);
 
   const handleSubmit = async () => {
     try {
       const response = await axios.get(
-        `https://opca-system.faratcards.com/api/get-order-info?order_no=${fullOrderNo}`
+        `https://opcaapi.anan.sa/Opca/public/api/order-details?OrderId=${fullOrderNo}`
       );
       if (response.data.status === 200) {
         const orderData = response.data.data;
@@ -32,16 +33,15 @@ function ConfirmOrder() {
             logo,
             delivery_company_id,
             orderData,
+            fullOrderNo,
           },
         });
       } else {
         toast.error("Order not found. Please try again.");
       }
     } catch (error) {
-      console.error(
-        "Error fetching order data:",
-        error.response ? error.response.data : error.message
-      );
+      const errorMessage = error.response ? error.response.data : error.message;
+      console.error("Error fetching order data:", errorMessage);
       toast.error("An error occurred while retrieving the order information.");
     }
   };

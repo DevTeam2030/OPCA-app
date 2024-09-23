@@ -109,6 +109,7 @@ const DigitsVerification = () => {
   };
   
   
+  
 
   return (
     <div className="digits-verification-container">

@@ -13,14 +13,15 @@ const OrderVerification = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Set the initial value of the first input to "5"
   const [inputs, setInputs] = useState(["5", "", "", "", "", "", "", "", ""]);
   const location = useLocation();
   const navigate = useNavigate();
   const { name, color, logo, delivery_company_id } = location.state || {};
+
   const handleChange = (e, index) => {
     const { value } = e.target;
-    if (/^\d?$/.test(value)) {
+    // Allow changes only if not the first input
+    if (index === 0 || /^\d?$/.test(value)) {
       const newInputs = [...inputs];
       newInputs[index] = value;
       setInputs(newInputs);

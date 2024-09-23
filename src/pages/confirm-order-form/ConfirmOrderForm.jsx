@@ -23,30 +23,30 @@ function ConfirmOrderForm() {
     logo = "",
     delivery_company_id = "",
     orderData = {},
+    fullOrderNo = "",
   } = location.state || {};
-  const getCurrentTime = () => {
-    const now = new Date();
-    const hours = now.getHours().toString().padStart(2, "0");
-    const minutes = now.getMinutes().toString().padStart(2, "0");
+
+  const formatTime = (timeString) => {
+    if (!timeString) return "";
+    const [hours, minutes] = timeString.split(":");
     return `${hours}:${minutes}`;
   };
+  const getCurrentTime = () => formatTime(new Date().toTimeString());
 
   const getTimePlus15Minutes = () => {
     const now = new Date();
     now.setMinutes(now.getMinutes() + 15);
-    const hours = now.getHours().toString().padStart(2, "0");
-    const minutes = now.getMinutes().toString().padStart(2, "0");
-    return `${hours}:${minutes}`;
+    return formatTime(now.toTimeString());
   };
 
   const branchData = JSON.parse(localStorage.getItem("selectedBranch")) || {};
   const branchName = branchData.name || "";
 
   const [formData, setFormData] = useState({
-    order_id: orderData.order_id || "",
-    receive_time: orderData.receive_time,
-    ready_time: orderData.ready_time || getTimePlus15Minutes(),
-    pickup_time: getCurrentTime(),
+    order_id: fullOrderNo || "",
+    receive_time: formatTime(orderData.receive_time) || getCurrentTime(),
+    ready_time: formatTime(orderData.ready_time) || getTimePlus15Minutes(),
+    pickup_time: formatTime(orderData.pickup_time) || getCurrentTime(),
     order_food_item: orderData.order_food_item || "",
     order_drink_item: orderData.order_drink_item || "",
     branch_name: branchName,
@@ -83,19 +83,12 @@ function ConfirmOrderForm() {
 
     try {
       const orderCheckResponse = await axios.get(
-        `https://opcaapi.anan.sa/Opca/public/api/order-details?OrderId=${formData.order_id}`
+        `https://opcaapi.anan.sa/Opca/public/api/order-details?OrderId=${fullOrderNo}`
       );
 
-      if (orderCheckResponse.data && orderCheckResponse.data.data) {
+      if (!orderCheckResponse.data || !orderCheckResponse.data.data) {
         setIsLoading(false);
-        toast.error(
-          <>
-            Order ID already exists.{" "}
-            <a href="/" style={{ color: "blue" }}>
-              Go back to Home
-            </a>
-          </>
-        );
+        toast.error("Order not found.");
         return;
       }
 
@@ -118,11 +111,18 @@ function ConfirmOrderForm() {
       navigate("/order-complete", { state: { name, color, logo } });
     } catch (error) {
       setIsLoading(false);
-      console.error(
-        "Error saving order:",
-        error.response ? error.response.data : error.message
-      );
-      toast.error("Error occurred while saving the order.");
+      console.error("Error fetching order data:", error);
+      if (error.response) {
+        console.error("Server responded with:", error.response.data);
+        toast.error(
+          `Error: ${
+            error.response.data.message ||
+            "Error occurred while fetching order details."
+          }`
+        );
+      } else {
+        toast.error("Network error. Please try again later.");
+      }
     }
   };
 
